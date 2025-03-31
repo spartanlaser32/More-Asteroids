@@ -49,7 +49,7 @@ planet_stuffmapping["aquilo"] = more_asteroid_util.spawn_definitions(more_astero
 
 
 for _,planet in pairs(planets) do
-  local hi = planet_stuffmapping[planet.name]
+  local hi = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_vulcanus, 0.9)
   if planet.name == "nauvis" then
     hi = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_vulcanus, 0.1)
   elseif planet.name == "vulcanus" then
@@ -58,11 +58,13 @@ for _,planet in pairs(planets) do
     hi = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_gleba, 0.9)
   elseif planet.name == "fulgora" then
     hi = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_fulgora, 0.9)
-  else 
+  elseif planet.name == "aquilo" then
     hi = more_asteroid_util.spawn_definitions(more_asteroid_util.fulgora_aquilo, 0.9)
   end
-  for _,def in pairs(hi) do
-    table.insert(planet.asteroid_spawn_definitions, def)
+  if (planet.name == "nauvis") or (planet.name == "vulcanus") or (planet.name == "gleba") or (planet.name == "fuglora") or (planet.name == "aquilo") then
+    for _,def in pairs(hi) do
+      table.insert(planet.asteroid_spawn_definitions, def)
+    end
   end
 end
 
