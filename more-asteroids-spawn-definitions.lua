@@ -14,6 +14,9 @@ asteroid_functions.fulgora_ratio     = {0, 0, 0, 0, 0, 9}
 asteroid_functions.aquilo_ratio      = {0, 0, 9, 0, 0, 0}
 asteroid_functions.system_edge_ratio = {0, 0, 3, 0, 0, 0}
 
+asteroid_functions.cerys_ratio       = {3, 0, 3, 0, 0, 3}
+asteroid_functions.muluna_ratio      = {2, 5, 0, 0, 0, 0}
+
 asteroid_functions.nauvis_chunks      = 0.0125
 asteroid_functions.vulcanus_chunks    = 0.0020
 asteroid_functions.vulcanus_medium    = 0.0025
@@ -26,6 +29,10 @@ asteroid_functions.aquilo_big         = 0.0025
 asteroid_functions.system_edge_chunks = 0.0005
 asteroid_functions.system_edge_huge   = 0.00125
 
+asteroid_functions.cerys_chunks       = 0.005
+asteroid_functions.cerys_medium       = 0.0005
+asteroid_functions.muluna_chunks      = 0.01
+
 asteroid_functions.chunk_angle = 1
 asteroid_functions.small_angle = 0.7
 asteroid_functions.medium_angle = 0.6
@@ -34,6 +41,7 @@ asteroid_functions.huge_angle = 0.4
 
 asteroid_functions.nauvis_vulcanus =
 {
+  types = {"uranium", "rock", "petrified"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.nauvis_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -54,6 +62,7 @@ asteroid_functions.nauvis_vulcanus =
 
 asteroid_functions.nauvis_gleba =
 {
+  types = {"uranium", "organic", "petrified"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.nauvis_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -74,6 +83,7 @@ asteroid_functions.nauvis_gleba =
 
 asteroid_functions.nauvis_fulgora =
 {
+  types = {"uranium", "petrified", "scrap"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.nauvis_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -94,6 +104,7 @@ asteroid_functions.nauvis_fulgora =
 
 asteroid_functions.vulcanus_gleba =
 {
+  types = {"rock", "organic"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.vulcanus_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -114,6 +125,7 @@ asteroid_functions.vulcanus_gleba =
 
 asteroid_functions.gleba_fulgora =
 {
+  types = {"organic", "scrap"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.gleba_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -134,6 +146,7 @@ asteroid_functions.gleba_fulgora =
 
 asteroid_functions.gleba_aquilo =
 {
+  types = {"chemical", "organic"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.gleba_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -159,6 +172,7 @@ asteroid_functions.gleba_aquilo =
 
 asteroid_functions.fulgora_aquilo =
 {
+  types = {"chemical", "scrap"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.fulgora_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -184,6 +198,7 @@ asteroid_functions.fulgora_aquilo =
 
 asteroid_functions.aquilo_solar_system_edge =
 {
+  types = {"uranium", "rock", "chemical"},
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_functions.aquilo_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
@@ -215,7 +230,7 @@ asteroid_functions.aquilo_solar_system_edge =
 
 asteroid_functions.shattered_planet_trip =
 {
-  has_promethium_asteroids = true,
+  types = {"uranium", "rock", "chemical", "organic", "petrified", "scrap"},
   probability_on_range_huge   =
   {
     {position = 0.001, probability = asteroid_functions.system_edge_huge, angle_when_stopped = asteroid_functions.huge_angle},
@@ -233,6 +248,44 @@ asteroid_functions.shattered_planet_trip =
     {position = 0.7,   ratios = {9, 6, 5, 1, 8, 8}},
     {position = 0.8,   ratios = {10, 7, 5, 1, 10, 11}},
     {position = 0.999, ratios = {10, 8, 5, 1, 12, 12}}
+  }
+}
+
+asteroid_functions.fulgora_cerys =
+{
+  types = {"uranium", "chemical", "scrap"},
+  probability_on_range_chunk =
+  {
+    {position = 0.1, probability = asteroid_functions.fulgora_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
+    {position = 0.5, probability = asteroid_functions.weighted_average(asteroid_functions.fulgora_chunks, asteroid_functions.cerys_chunks, 0.5), angle_when_stopped = asteroid_functions.chunk_angle},
+    {position = 0.9, probability = asteroid_functions.cerys_chunks, angle_when_stopped = asteroid_functions.chunk_angle}
+  },
+  probability_on_range_medium =
+  {
+    {position = 0.1, probability = asteroid_functions.fulgora_medium, angle_when_stopped = asteroid_functions.medium_angle},
+    {position = 0.4, probability = asteroid_functions.fulgora_medium * 0.5, angle_when_stopped = asteroid_functions.medium_angle},
+    {position = 0.9, probability = asteroid_functions.cerys_medium, angle_when_stopped = asteroid_functions.medium_angle}
+  },
+  type_ratios =
+  {
+    {position = 0.1, ratios = asteroid_functions.fulgora_ratio},
+    {position = 0.9, ratios = asteroid_functions.cerys_ratio},
+  }
+}
+
+asteroid_functions.nauvis_muluna =
+{
+  types = {"uranium", "rock", "petrified"},
+  probability_on_range_chunk =
+  {
+    {position = 0.1, probability = asteroid_functions.nauvis_chunks, angle_when_stopped = asteroid_functions.chunk_angle},
+    --{position = 0.5, probability = asteroid_functions.weighted_average(asteroid_functions.nauvis_chunks, asteroid_functions.muluna_chunks, 0.7) * 2, angle_when_stopped = asteroid_functions.chunk_angle},
+    {position = 0.9, probability = asteroid_functions.muluna_chunks, angle_when_stopped = asteroid_functions.chunk_angle}
+  },
+  type_ratios =
+  {
+    {position = 0.1, ratios = asteroid_functions.nauvis_ratio},
+    {position = 0.9, ratios = asteroid_functions.muluna_ratio},
   }
 }
 
@@ -368,7 +421,7 @@ end
 asteroid_functions.spawn_definitions = function(data, planet)
   local asteroid_spawn_definitions = {}
   local asteroid_sizes = {"chunk", "small", "medium", "big", "huge"}
-  local asteroid_types = {"uranium", "rock", "chemical", "organic", "petrified", "scrap"}
+  local asteroid_types = data.types
   for k, asteroid_size in pairs(asteroid_sizes) do
     for k, asteroid_type in pairs(asteroid_types) do
       local asteroid_name = ""

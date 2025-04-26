@@ -36,58 +36,27 @@ crusher.fluid_boxes_off_when_no_fluid_recipe = true;
 --adding the asteroid spawn definitions to the original data
 --had to comment out the code block that added definitions to the connections due to some NIL error
 -- theoretically the additional asteroids shouldn't spawn in between the planets because of this but they do anyway. Idk how
-local planets = data.raw.planet
+local planets = data.raw["planet"]
 local locations = data.raw["space-location"]
 local connections = data.raw["space-connection"]
 local more_asteroid_util = require("__More-Asteroids__.more-asteroids-spawn-definitions")
 
-local planet_stuffmapping = {}
-planet_stuffmapping["vulcanus"] = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_vulcanus, 0.9)
-planet_stuffmapping["gleba"] = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_gleba, 0.9)
-planet_stuffmapping["fulgora"] = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_fulgora, 0.9)
-planet_stuffmapping["aquilo"] = more_asteroid_util.spawn_definitions(more_asteroid_util.fulgora_aquilo, 0.9)
-
-
-for _,planet in pairs(planets) do
-  local hi = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_vulcanus, 0.9)
-  if planet.name == "nauvis" then
-    hi = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_vulcanus, 0.1)
-  elseif planet.name == "vulcanus" then
-    hi = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_vulcanus, 0.9)
-  elseif planet.name == "gleba" then
-    hi = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_gleba, 0.9)
-  elseif planet.name == "fulgora" then
-    hi = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_fulgora, 0.9)
-  elseif planet.name == "aquilo" then
-    hi = more_asteroid_util.spawn_definitions(more_asteroid_util.fulgora_aquilo, 0.9)
-  end
-  if (planet.name == "nauvis") or (planet.name == "vulcanus") or (planet.name == "gleba") or (planet.name == "fuglora") or (planet.name == "aquilo") then
-    for _,def in pairs(hi) do
-      table.insert(planet.asteroid_spawn_definitions, def)
-    end
-  end
-end
+local planet_stuffmapping = {
+  ["nauvis"] = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_vulcanus, 0.1),
+  ["vulcanus"] = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_vulcanus, 0.9),
+  ["gleba"] = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_gleba, 0.9),
+  ["fulgora"] = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_fulgora, 0.9),
+  ["aquilo"] = more_asteroid_util.spawn_definitions(more_asteroid_util.fulgora_aquilo, 0.9),
+  ["cerys"] = more_asteroid_util.spawn_definitions(more_asteroid_util.fulgora_cerys, 0.9),
+  ["muluna"] = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_muluna, 0.9)
+}
 
 local location_stuffmapping = {
   ["solar-system-edge"] = more_asteroid_util.spawn_definitions(more_asteroid_util.aquilo_solar_system_edge, 0.9),
   ["shattered-planet"] = more_asteroid_util.spawn_definitions(more_asteroid_util.shattered_planet_trip, 0.8)
 }
-for _,location in pairs(locations) do
-  local hi = location_stuffmapping[location.name]
-  if location.name == "solar-system-edge" then
-    hi = more_asteroid_util.spawn_definitions(more_asteroid_util.aquilo_solar_system_edge, 0.9)
-  elseif location.name == "shattered-planet" then
-    hi = more_asteroid_util.spawn_definitions(more_asteroid_util.shattered_planet_trip, 0.8)
-  end
-  if location.name == "solar-system-edge" or location.name == "shattered-planet" then
-    for _,def in pairs(hi) do
-      table.insert(location.asteroid_spawn_definitions, def)
-    end
-  end
-  
-end
---[[
-local connections_stuffmapping = {
+
+local connection_stuffmapping = {
   ["nauvis-vulcanus"] = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_vulcanus),
   ["nauvis-gleba"] = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_gleba),
   ["nauvis-fulgora"] = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_fulgora),
@@ -97,17 +66,46 @@ local connections_stuffmapping = {
   ["fulgora-aquilo"] = more_asteroid_util.spawn_definitions(more_asteroid_util.fulgora_aquilo),
   ["aquilo-solar-system-edge"] = more_asteroid_util.spawn_definitions(more_asteroid_util.aquilo_solar_system_edge),
   ["solar-system-edge-shattered-planet"] = more_asteroid_util.spawn_definitions(more_asteroid_util.shattered_planet_trip),
+  ["fulgora-cerys"] = more_asteroid_util.spawn_definitions(more_asteroid_util.fulgora_cerys),
+  ["nauvis-muluna"] = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_muluna)
 }
-for _,connection in pairs(connections) do
-  local hi = {}
-  if connection.name == "nauvis-vulcanus" then
-    hi = more_asteroid_util.spawn_definitions(more_asteroid_util.nauvis_vulcanus)
-  end
-  for _,def in pairs(hi) do
-    --table.insert(connection.asteroid_spawn_definitions, def)
+
+
+for _,planet in pairs(planets) do
+  if planet_stuffmapping[planet.name] ~= nil then
+    if planet.asteroid_spawn_definitions ~= nil then
+      for _,def in pairs(planet_stuffmapping[planet.name]) do
+        table.insert(planet.asteroid_spawn_definitions, def)
+      end
+    else 
+      planet.asteroid_spawn_definitions = planet_stuffmapping[planet.name]
+    end
   end
 end
-]]
+
+for _,location in pairs(locations) do
+  if location_stuffmapping[location.name] ~= nil then
+    if location.asteroid_spawn_definitions ~= nil then
+      for _,def in pairs(location_stuffmapping[location.name]) do
+        table.insert(location.asteroid_spawn_definitions, def)
+      end
+    else
+      location.asteroid_spawn_definitions = location_stuffmapping[location.name]
+    end
+  end
+end
+
+for _,connection in pairs(connections) do
+  if connection_stuffmapping[connection.name] ~= nil then
+    if connection.asteroid_spawn_definitions ~= nil then
+      for _,def in pairs(connection_stuffmapping[connection.name]) do
+        table.insert(connection.asteroid_spawn_definitions, def)
+      end
+    else
+      connection.asteroid_spawn_definitions = connection_stuffmapping[connection.name]
+    end
+  end
+end
 
 
 

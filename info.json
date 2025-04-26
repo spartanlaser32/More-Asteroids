@@ -1,9 +1,9 @@
 {
   "name": "More-Asteroids",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "title": "More Asteroids",
   "author": "spartanlaser32",
   "factorio_version": "2.0",
-  "dependencies": [ "base >= 2.0", "space-age" ],
+  "dependencies": [ "base >= 2.0", "space-age", "? Cerys-Moon-of-Fulgora", "? planet-muluna" ],
   "description": "This mod adds more asteroid types into the game."
 }
