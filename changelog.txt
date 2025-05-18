@@ -1,3 +1,13 @@
+Version: 0.4.1
+Date: 01. 05. 2025
+  Bugfixes:
+    - Temporary fix for crash when using "Any Planet Start" outside of Nauvis
+---------------------------------------------------------------------------------------------------
+Version: 0.4.0
+Date: 29. 04. 2025
+  Features:
+    - Added support for Maraxis
+---------------------------------------------------------------------------------------------------
 Version: 0.3.0
 Date: 20. 04. 2025
   Features:
