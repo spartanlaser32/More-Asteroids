@@ -139,3 +139,21 @@ table.insert(data.raw["technology"]["advanced-asteroid-processing"].effects, {ty
 
 table.insert(data.raw["technology"]["planet-discovery-aquilo"].effects, {type = "unlock-recipe", recipe = "chemical-asteroid-crushing"})
 table.insert(data.raw["technology"]["planet-discovery-aquilo"].effects, {type = "unlock-recipe", recipe = "advanced-chemical-asteroid-crushing"})
+
+
+
+local recipes = {"uranium-asteroid-crushing", 
+"rock-asteroid-crushing", 
+"scrap-asteroid-crushing",
+"organic-asteroid-crushing",
+"petrified-asteroid-crushing",
+"chemical-asteroid-crushing",
+"advanced-uranium-asteroid-crushing",
+"advanced-petrified-asteroid-crushing",
+"advanced-rock-asteroid-crushing",
+"advanced-scrap-asteroid-crushing",
+"advanced-organic-asteroid-crushing",
+"advanced-chemical-asteroid-crushing"}
+for i=1, 12 do
+  table.insert(data.raw["technology"]["asteroid-productivity"].effects, {type = "change-recipe-productivity", recipe = recipes[i], change = 0.1})
+end

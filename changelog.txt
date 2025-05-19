@@ -1,3 +1,8 @@
+Version: 0.4.2
+Date: 18. 05. 2025
+  Features:
+    - Added the main asteroids to the asteroid productivity research
+---------------------------------------------------------------------------------------------------
 Version: 0.4.1
 Date: 01. 05. 2025
   Bugfixes:
