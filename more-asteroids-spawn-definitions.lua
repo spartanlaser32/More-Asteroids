@@ -18,17 +18,17 @@ asteroid_functions.cerys_ratio       = {3, 0, 3, 0, 0, 3}
 asteroid_functions.muluna_ratio      = {2, 5, 0, 0, 0, 0}
 asteroid_functions.maraxsis_ratio    = {0, 2, 0, 4, 4, 0}
 
-asteroid_functions.nauvis_chunks      = 0.0125
+asteroid_functions.nauvis_chunks      = 0.01  --0.0125
 asteroid_functions.vulcanus_chunks    = 0.0020
-asteroid_functions.vulcanus_medium    = 0.0025
+asteroid_functions.vulcanus_medium    = 0.0015 -- 0.0025
 asteroid_functions.gleba_chunks       = 0.0030
-asteroid_functions.gleba_medium       = 0.0025
+asteroid_functions.gleba_medium       = 0.0015 -- 0.0025
 asteroid_functions.fulgora_chunks     = 0.0025
-asteroid_functions.fulgora_medium     = 0.0025
+asteroid_functions.fulgora_medium     = 0.0015 -- 0.0025
 asteroid_functions.aquilo_chunks      = 0.0010
-asteroid_functions.aquilo_big         = 0.0025
+asteroid_functions.aquilo_big         = 0.0015 -- 0.0025
 asteroid_functions.system_edge_chunks = 0.0005
-asteroid_functions.system_edge_huge   = 0.00125
+asteroid_functions.system_edge_huge   = 0.00025 --0.00125
 
 asteroid_functions.cerys_chunks       = 0.005
 asteroid_functions.cerys_medium       = 0.0005
@@ -237,19 +237,20 @@ asteroid_functions.shattered_planet_trip =
   probability_on_range_huge   =
   {
     {position = 0.001, probability = asteroid_functions.system_edge_huge, angle_when_stopped = asteroid_functions.huge_angle},
-    {position = 0.999, probability = 0.111, angle_when_stopped = asteroid_functions.huge_angle}
+    {position = 0.999, probability = 0.011, angle_when_stopped = asteroid_functions.huge_angle}
   },
   type_ratios =
   {
     {position = 0.001, ratios = asteroid_functions.system_edge_ratio},
-    {position = 0.002, ratios = {0, 0, 3, 1, 1, 0}},-- 3 5 2
-    {position = 0.2,   ratios = {0.5, 1, 4, 1, 2, 0}},
+    {position = 0.002, ratios = {1, 1, 3, 1, 1, 1}},-- 3 5 2
+    {position = 0.2,   ratios = {0.5, 1, 4, 1, 2, 1}},
     {position = 0.3,   ratios = {1, 2, 5, 1, 3, 1}},
     {position = 0.4,   ratios = {2, 3, 5, 1, 4, 5}},
     {position = 0.5,   ratios = {4, 4, 5, 1, 5, 2}},
     {position = 0.6,   ratios = {8, 5, 5, 1, 6, 4}},
     {position = 0.7,   ratios = {9, 6, 5, 1, 8, 8}},
-    {position = 0.8,   ratios = {10, 7, 5, 1, 10, 11}},
+    {position = 0.8,   ratios = {1, 1, 1, 1, 1, 1}},
+    --{position = 0.8,   ratios = {10, 7, 5, 1, 10, 11}},
     {position = 0.999, ratios = {10, 8, 5, 1, 12, 12}}
   }
 }
@@ -399,7 +400,7 @@ asteroid_functions.normalize_ratio = function(ratio)
 end
 
 asteroid_functions.interpolate_point_ratio = function(pointA, pointB, position)
-  local interpolated_data = {position = position, ratios = {1,1,1,1}}
+  local interpolated_data = {position = position, ratios = {1,1,1,1,1,1}}
   for k, r in pairs(pointA.ratios) do
     local interpolated_probability, interpolated_angle = asteroid_functions.interpolate_points(
       {position = pointA.position, probability = asteroid_functions.normalize_ratio(pointA.ratios)[k]},
